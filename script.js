@@ -1,6 +1,6 @@
 const generateRandomNumber = () => Math.floor(Math.random() * 100) + 1;
 
-game();
+
 
 // ELIF
 const game = (points) => {
@@ -58,3 +58,5 @@ const checkGuess = (playerGuess, correctNumber) => {
     // return string L,H,C
     return "too low, too high, or correct";
 };
+
+game();
