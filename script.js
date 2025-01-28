@@ -3,13 +3,13 @@ const generateRandomNumber = () => Math.floor(Math.random() * 100) + 1;
 // ELIF
 const game = (points) => {
     startGame = confirm(
-        "Hello, guys! I am the evil AI once more, and this time I challenge you to a game of wits: a Number Guessing Game. Good luck, and may the best coder win! Mwahahaha!"
+        "Hello, guys! I am the evil AI, and this time I challenge you to a game of wits: a Number Guessing Game. Good luck, and may the best gambler win! Mwahahaha!"
     );
 
     if (startGame) {
         let gameResult = play();
         console.log(gameResult);
-        // endGame();
+        endGame();
     } else {
         open("./coward.jpg", "_self");
     }
@@ -121,7 +121,24 @@ function quit() {
 const checkGuess = (playerGuess, correctNumber) => {
     // Switch
     // return string L,H,C
-    return "L";
-};
+     correctNumber = generateRandomNumber;
+    switch (playerGuess, correctNumber) {
+        case playerGuess < correctNumber:
+            text = "Your number is low";
+            getPlayerGuess();
+        break;
+        case playerGuess > correctNumber:
+            text = "Your number is high";
+            getPlayerGuess();
+        break;
+        case playerGuess == correctNumber:
+            text = "congratulations, your guess is true";
+            endGame();
+        break;
+        default:
+            text = "You need to guess number!!"
+            getPlayerGuess();
+    };
+};    
 
 game();
