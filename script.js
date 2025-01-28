@@ -117,28 +117,35 @@ function quit() {
     throw new Error("some error");
 }
 
+const checkGuess = (playerGuess, correctNumber) =>
+    playerGuess == correctNumber
+        ? "C"
+        : playerGuess > correctNumber
+        ? "H"
+        : "L";
+
 // ELIF
-const checkGuess = (playerGuess, correctNumber) => {
-    // Switch
-    // return string L,H,C
-     correctNumber = generateRandomNumber;
-    switch (playerGuess, correctNumber) {
-        case playerGuess < correctNumber:
-            text = "Your number is low";
-            getPlayerGuess();
-        break;
-        case playerGuess > correctNumber:
-            text = "Your number is high";
-            getPlayerGuess();
-        break;
-        case playerGuess == correctNumber:
-            text = "congratulations, your guess is true";
-            endGame();
-        break;
-        default:
-            text = "You need to guess number!!"
-            getPlayerGuess();
-    };
-};    
+// const checkGuess = (playerGuess, correctNumber) => {
+//     // Switch
+//     // return string L,H,C
+//      correctNumber = generateRandomNumber;
+//     switch (playerGuess, correctNumber) {
+//         case playerGuess < correctNumber:
+//             text = "Your number is low";
+//             getPlayerGuess();
+//         break;
+//         case playerGuess > correctNumber:
+//             text = "Your number is high";
+//             getPlayerGuess();
+//         break;
+//         case playerGuess == correctNumber:
+//             text = "congratulations, your guess is true";
+//             endGame();
+//         break;
+//         default:
+//             text = "You need to guess number!!"
+//             getPlayerGuess();
+//     };
+// };
 
 game();
