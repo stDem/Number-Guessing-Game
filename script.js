@@ -1,23 +1,38 @@
 const generateRandomNumber = () => Math.floor(Math.random() * 100) + 1;
 
 // ELIF
-const game = (points) => {
-    startGame = confirm(
-        "Hello, guys! I am the evil AI, and this time I challenge you to a game of wits: a Number Guessing Game. Good luck, and may the best gambler win! Mwahahaha!"
-    );
+const game = () => {
+  console.log("Game started");
+  let startGame = confirm(
+      "Hello, guys! I am the evil AI, and this time I challenge you to a game of wits: a Number Guessing Game. Good luck, and may the best gambler win! Mwahahaha! Are you ready to engage in mortal combat with me?"
+  );
 
-    if (startGame) {
-        let gameResult = play();
-        console.log(gameResult);
-        endGame();
+  if (startGame) {
+    let playAgain = false;
+    const {attempts, victory} = play();
+    const message = endGame(attempts, victory);
+    alert(message);
+    playAgain = confirm("Do you want to play with fate again?");
+    if (playAgain) {
+      game();
     } else {
-        open("./coward.jpg", "_self");
+      alert("Bye Bye, COWARD!");
+      return quit();
     }
+  } else {
+    let exit = confirm("Do you wish to quite the game?");
+      if (exit) {
+        alert("Bye Bye, COWARD!");
+        return quit();
+      }
+      else play();
+  }
 };
 
 // STEF
 const play = () => {
     const selectedNumber = generateRandomNumber();
+    console.log(`Generated number: ${selectedNumber}`);
     let attempts = 0;
     let victory = false;
     let playerGuess;
@@ -50,71 +65,66 @@ const play = () => {
                 break;
             case "C":
                 victory = true;
-                alert(`Correct!`);
+                alert(`Correct! Are you a cheater?`);
                 break;
         }
     } while (attempts < 10 && !victory);
 
-    return { attempts, victory };
+    return {attempts, victory};
 };
+
+const getReward = (attempts) => (attempts > 0 && attempts <= 10) ? attempts * 0.1 : 0;
 
 // ANASTASIIA
-const endGame = (gameResult) => {
-    // Bonus Challenge: Implement a scoring system that rewards the player with
-    // points based on how quickly they guess the correct number
-
-    if (gameResult.vicotry) {
-        let points = 10 - gameResult.attempts + gameResult.points;
-        //   you won and made a total of ${points} points
-        // wanna play again?
-        game(points);
-    } else {
-        // you lost
-        // try again?
-    }
+const endGame = (attempts, vicotry) => {
+  console.log(vicotry);
+  let reward = getReward(attempts);
+  return (vicotry ? `You won! You made a total of ${attempts} attemts and got ${reward} points reward for speed` : `You lose!`);
 };
+
 
 // STEF
 const getPlayerGuess = () => {
-    let stringInput = userInput("Enter a number between 1 and 100", "");
-    const regex = /^[0-9]+$/;
-    let input;
+  let stringInput = userInput("Enter a number between 1 and 100", "");
+  const regex = /^[0-9]+$/;
+  let input;
 
-    if (regex.test(stringInput)) {
-        input = parseInt(stringInput, 10);
+  if (regex.test(stringInput)) {
+      input = parseInt(stringInput, 10);
 
-        if (isNaN(input)) {
-            alert("Invalid input. Please enter only numeric characters.");
-            return getPlayerGuess();
-        } else if (input > 100) {
-            alert("The number is too high!");
-            return getPlayerGuess();
-        } else if (input <= 0) {
-            alert("The number is too low!");
-            return getPlayerGuess();
-        }
-    } else {
-        alert("Invalid input. Please enter only numeric characters.");
-        return getPlayerGuess();
-    }
+      if (isNaN(input)) {
+          alert("Invalid input. Please enter only numeric characters.");
+          return getPlayerGuess();
+      } else if (input > 100) {
+          alert("The number is too high!");
+          return getPlayerGuess();
+      } else if (input <= 0) {
+          alert("The number is too low!");
+          return getPlayerGuess();
+      }
+  } else {
+      alert("Invalid input. Please enter only numeric characters.");
+      return getPlayerGuess();
+  }
 
-    return input;
+  return input;
 };
 
 function userInput(text, placeholder = "") {
-    let input = prompt(text, placeholder);
-    if (input == null) {
-        let exit = confirm("Do you wish to quite the game?");
-        if (exit) {
-            alert("Bye Bye");
-            return quit();
-        } else userInput(text, placeholder);
-    } else return input;
+  let input = prompt(text, placeholder);
+  if (input == null) {
+      let exit = confirm("Do you wish to quite the game?");
+      if (exit) {
+          alert("Bye Bye, COWARD!");
+          return quit();
+      } else
+        return userInput(text, placeholder);
+  } else return input;
 }
 
 function quit() {
     open("./coward.jpg", "_self");
-    throw new Error("some error");
+    // throw new Error("some error");
 }
 
 const checkGuess = (playerGuess, correctNumber) =>
