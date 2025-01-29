@@ -1,36 +1,41 @@
+let totalScore = 0;
+
 const generateRandomNumber = () => Math.floor(Math.random() * 100) + 1;
 
-// ELIF
-const game = () => {
-  console.log("Game started");
-  let startGame = confirm(
-      "Hello, guys! I am the evil AI, and this time I challenge you to a game of wits: a Number Guessing Game. Good luck, and may the best gambler win! Mwahahaha! Are you ready to engage in mortal combat with me?"
-  );
+const checkGuess = (playerGuess, correctNumber) =>
+    playerGuess == correctNumber
+        ? "C"
+        : playerGuess > correctNumber
+        ? "H"
+        : "L";
 
-  if (startGame) {
-    let playAgain = false;
-    const {attempts, victory} = play();
-    const message = endGame(attempts, victory);
-    alert(message);
-    playAgain = confirm("Do you want to play with fate again?");
-    if (playAgain) {
-      game();
+const getReward = (attempts) => 100 - attempts * 10;
+
+const game = function () {
+    let startGame = confirm(
+        "Hello There!\nI am the evil AI, and this time I challenge you to a game of wits:\nGuess My Number.\n\nRules:\n-You have only 10 attempts\n-You shall only input decimal positive Numbers between 1 and 100\n\nAre you ready to engage in mortal combat with me?\nGood luck, and may the best gambler win! Mwahahaha!"
+    );
+
+    if (startGame) {
+        const { attempts, victory } = play();
+        const message = endGame(attempts, victory);
+        alert(message);
+        if (confirm("Do you want to play with fate again?")) {
+            game();
+        } else {
+            alert("Bye Bye, COWARD!");
+            return quit();
+        }
     } else {
-      alert("Bye Bye, COWARD!");
-      return quit();
+        let exit = confirm("Do you wish to quite the game?");
+        if (exit) {
+            alert("Bye Bye, COWARD!");
+            return quit();
+        } else play();
     }
-  } else {
-    let exit = confirm("Do you wish to quite the game?");
-      if (exit) {
-        alert("Bye Bye, COWARD!");
-        return quit();
-      }
-      else play();
-  }
 };
 
-// STEF
-const play = () => {
+const play = function () {
     const selectedNumber = generateRandomNumber();
     console.log(`Generated number: ${selectedNumber}`);
     let attempts = 0;
@@ -39,7 +44,7 @@ const play = () => {
 
     do {
         attempts++;
-        attempts == 10 ? alert("LAST CHANCE!") : null;
+        attempts == 10 ? alert("THIS IS YOUR LAST CHANCE!") : null;
         playerGuess = getPlayerGuess();
         console.log(`Attempt n. ${attempts}\nPlayer guess: ${playerGuess}`);
         let check = checkGuess(playerGuess, selectedNumber);
@@ -70,92 +75,57 @@ const play = () => {
         }
     } while (attempts < 10 && !victory);
 
-    return {attempts, victory};
+    return { attempts, victory };
 };
 
-const getReward = (attempts) => (attempts > 0 && attempts <= 10) ? attempts * 0.1 : 0;
-
-// ANASTASIIA
-const endGame = (attempts, vicotry) => {
-  console.log(vicotry);
-  let reward = getReward(attempts);
-  return (vicotry ? `You won! You made a total of ${attempts} attemts and got ${reward} points reward for speed` : `You lose!`);
+const endGame = function (attempts, victory) {
+    let reward = victory ? getReward(attempts) : -20;
+    totalScore += reward;
+    return victory
+        ? `Contratulations, You won!\n\nAtempts: ${attempts}\nScore: ${reward}\n\nTotal Score:${totalScore}`
+        : `You lost!\n\nMinus 20 points for you!\n\nTotal Score:${totalScore} `;
 };
 
+const getPlayerGuess = function () {
+    let stringInput = userInput("Enter a number between 1 and 100", "");
+    const regex = /^[0-9]+$/;
+    let input;
 
-// STEF
-const getPlayerGuess = () => {
-  let stringInput = userInput("Enter a number between 1 and 100", "");
-  const regex = /^[0-9]+$/;
-  let input;
+    if (regex.test(stringInput)) {
+        input = parseInt(stringInput, 10);
 
-  if (regex.test(stringInput)) {
-      input = parseInt(stringInput, 10);
+        if (isNaN(input)) {
+            alert("Invalid input. Please enter only numeric characters.");
+            return getPlayerGuess();
+        } else if (input > 100) {
+            alert("The number is too high!");
+            return getPlayerGuess();
+        } else if (input <= 0) {
+            alert("The number is too low!");
+            return getPlayerGuess();
+        }
+    } else {
+        alert("Invalid input. Please enter only numeric characters.");
+        return getPlayerGuess();
+    }
 
-      if (isNaN(input)) {
-          alert("Invalid input. Please enter only numeric characters.");
-          return getPlayerGuess();
-      } else if (input > 100) {
-          alert("The number is too high!");
-          return getPlayerGuess();
-      } else if (input <= 0) {
-          alert("The number is too low!");
-          return getPlayerGuess();
-      }
-  } else {
-      alert("Invalid input. Please enter only numeric characters.");
-      return getPlayerGuess();
-  }
-
-  return input;
+    return input;
 };
 
-function userInput(text, placeholder = "") {
-  let input = prompt(text, placeholder);
-  if (input == null) {
-      let exit = confirm("Do you wish to quite the game?");
-      if (exit) {
-          alert("Bye Bye, COWARD!");
-          return quit();
-      } else
-        return userInput(text, placeholder);
-  } else return input;
-}
+const userInput = function (text, placeholder = "") {
+    let input = prompt(text, placeholder);
+    if (input == null) {
+        let exit = confirm("Do you wish to quite the game?");
+        if (exit) {
+            alert("Bye Bye, COWARD!");
+            return quit();
+        } else return userInput(text, placeholder);
+    } else return input;
+};
 
-function quit() {
+const quit = function () {
     open("./coward.jpg", "_self");
     // throw new Error("some error");
-}
-
-const checkGuess = (playerGuess, correctNumber) =>
-    playerGuess == correctNumber
-        ? "C"
-        : playerGuess > correctNumber
-        ? "H"
-        : "L";
-
-// ELIF
-// const checkGuess = (playerGuess, correctNumber) => {
-//     // Switch
-//     // return string L,H,C
-//      correctNumber = generateRandomNumber;
-//     switch (playerGuess, correctNumber) {
-//         case playerGuess < correctNumber:
-//             text = "Your number is low";
-//             getPlayerGuess();
-//         break;
-//         case playerGuess > correctNumber:
-//             text = "Your number is high";
-//             getPlayerGuess();
-//         break;
-//         case playerGuess == correctNumber:
-//             text = "congratulations, your guess is true";
-//             endGame();
-//         break;
-//         default:
-//             text = "You need to guess number!!"
-//             getPlayerGuess();
-//     };
-// };
+};
 
 game();
