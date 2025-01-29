@@ -17,9 +17,13 @@ const game = function () {
     );
 
     if (startGame) {
-        const { attempts, victory } = play();
+        const { attempts, victory, exit } = play();
+        if (exit) {
+            return quit();
+        }
         const message = endGame(attempts, victory);
         alert(message);
+
         if (confirm("Do you want to play with fate again?")) {
             game();
         } else {
@@ -46,6 +50,9 @@ const play = function () {
         attempts++;
         attempts == 10 ? alert("THIS IS YOUR LAST CHANCE!") : null;
         playerGuess = getPlayerGuess();
+        if (playerGuess == "EXIT") {
+            return { exit: true };
+        }
         console.log(`Attempt n. ${attempts}\nPlayer guess: ${playerGuess}`);
         let check = checkGuess(playerGuess, selectedNumber);
 
@@ -88,6 +95,9 @@ const endGame = function (attempts, victory) {
 
 const getPlayerGuess = function () {
     let stringInput = userInput("Enter a number between 1 and 100", "");
+    if (stringInput == "EXIT") {
+        return "EXIT";
+    }
     const regex = /^[0-9]+$/;
     let input;
 
@@ -118,14 +128,14 @@ const userInput = function (text, placeholder = "") {
         let exit = confirm("Do you wish to quite the game?");
         if (exit) {
             alert("Bye Bye, COWARD!");
-            return quit();
+            return "EXIT";
         } else return userInput(text, placeholder);
     } else return input;
 };
 
 const quit = function () {
-    open("./coward.jpg", "_self");
-    // throw new Error("some error");
+    console.log("quit");
+    return open("./coward.jpg", "_self");
 };
 
 game();
