@@ -1,4 +1,5 @@
 let totalScore = 0;
+let knowComputerNumber = false;
 
 const generateRandomNumber = () => Math.floor(Math.random() * 100) + 1;
 
@@ -9,8 +10,10 @@ const getReward = (attempts) => 100 - attempts * 10;
 
 const game = function () {
   let startGame = confirm(
-    "Hello There!\nI am the evil AI, and this time I challenge you to a game of wits:\nGuess My Number.\n\nRules:\n-You have only 10 attempts\n-You shall only input decimal positive Numbers between 1 and 100\n\nAre you ready to engage in mortal combat with me?\nGood luck, and may the best gambler win! Mwahahaha!"
+    "Hello There!\nI am the evil AI, and this time I challenge you to a game of wits:\nGuess My Number.\n\nRules:\n-You have only 10 attempts\n-You shall only input decimal positive Numbers between 1 and 100\n\nAre you ready to engage in mortal combat with me?\nGood luck, and may the best gambler win! Mwahahaha! \n (ง'̀-'́)ง"
   );
+
+  knowComputerNumber = confirm("Do you want to know the computer choice?   ( ͡° ͜ʖ ͡°) ");
 
   if (startGame) {
     const { attempts, victory, exit } = play();
@@ -20,14 +23,14 @@ const game = function () {
     const message = endGame(attempts, victory);
     alert(message);
 
-    if (confirm("Do you want to play with fate again?")) {
+    if (confirm("Do you want to play with fate again? \n ( -_･) ︻デ═一' * (/❛o❛)/")) {
       game();
     } else {
       alert("Bye Bye, COWARD!");
       return quit();
     }
   } else {
-    let exit = confirm("Do you wish to quite the game?");
+    let exit = confirm("Do you wish to quite the game? \n （（●´∧｀●））");
     if (exit) {
       alert("Bye Bye, COWARD!");
       return quit();
@@ -37,14 +40,14 @@ const game = function () {
 
 const play = function () {
   const selectedNumber = generateRandomNumber();
-  console.log(`Generated number: ${selectedNumber}`);
+  if (knowComputerNumber) console.log(`Computer chose: ${selectedNumber}`);
   let attempts = 0;
   let victory = false;
   let playerGuess;
 
   do {
     attempts++;
-    attempts == 10 ? alert("THIS IS YOUR LAST CHANCE!") : null;
+    attempts == 10 ? alert("THIS IS YOUR LAST CHANCE! \n ⊙˛̼⊙") : null;
     playerGuess = getPlayerGuess();
     if (playerGuess == "EXIT") {
       return { exit: true };
@@ -101,7 +104,7 @@ const getPlayerGuess = function () {
     input = parseInt(stringInput, 10);
 
     if (isNaN(input)) {
-      alert("Invalid input. Please enter only numeric characters.");
+      alert("Invalid input. Please enter only numeric characters. \n ƪ(“╰ _ ╯ )ʃ");
       return getPlayerGuess();
     } else if (input > 100) {
       alert("The number is too high!");
@@ -111,7 +114,7 @@ const getPlayerGuess = function () {
       return getPlayerGuess();
     }
   } else {
-    alert("Invalid input. Please enter only numeric characters.");
+    alert("Invalid input. Please enter only numeric characters. \n ƪ(“╰ _ ╯ )ʃ");
     return getPlayerGuess();
   }
 
@@ -121,7 +124,7 @@ const getPlayerGuess = function () {
 const userInput = function (text, placeholder = "") {
   let input = prompt(text, placeholder);
   if (input == null) {
-    let exit = confirm("Do you wish to quite the game?");
+    let exit = confirm("Do you wish to quite the game? \n （（●´∧｀●））");
     if (exit) {
       alert("Bye Bye, COWARD!");
       return "EXIT";
@@ -130,7 +133,7 @@ const userInput = function (text, placeholder = "") {
 };
 
 const quit = function () {
-  console.log("quit");
+  console.log("quit ଵ ˛̼ ଵ");
   return open("./coward.jpg", "_self");
 };
 
