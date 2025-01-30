@@ -26,13 +26,13 @@ const game = function () {
     if (confirm("Do you want to play with fate again? \n ( -_･) ︻デ═一' * (/❛o❛)/")) {
       game();
     } else {
-      alert("Bye Bye, COWARD!");
+      alert("Bye Bye, COWARD! (☛´∀｀*)☛");
       return quit();
     }
   } else {
     let exit = confirm("Do you wish to quite the game? \n （（●´∧｀●））");
     if (exit) {
-      alert("Bye Bye, COWARD!");
+      alert("Bye Bye, COWARD! (☛´∀｀*)☛");
       return quit();
     } else play();
   }
@@ -61,22 +61,22 @@ const play = function () {
           ? alert(
               `Wrong Guess \nYour Guess is lower than My number! \nYou have ${
                 10 - attempts
-              } attempts left `
+              } attempts left ╭( ๐ _๐)╮`
             )
-          : alert(`Sorry... no luck for you today`);
+          : alert(`Sorry... no luck for you today ♪～(￣、￣ )`);
         break;
       case "H":
         attempts != 10
           ? alert(
               `Wrong Guess \nYour Guess is higher than My number! \nYou have ${
                 10 - attempts
-              } attempts left `
+              } attempts left ╭( ๐ _๐)╮`
             )
-          : alert(`Sorry... no luck for you today`);
+          : alert(`Sorry... no luck for you today ♪～(￣、￣ )`);
         break;
       case "C":
         victory = true;
-        alert(`Correct! Are you a cheater?`);
+        alert(`Correct! Are you a cheater? (⊙︿⊙ ✿)`);
         break;
     }
   } while (attempts < 10 && !victory);
@@ -88,8 +88,8 @@ const endGame = function (attempts, victory) {
   let reward = victory ? getReward(attempts) : -20;
   totalScore += reward;
   return victory
-    ? `Contratulations, You won!\n\nAtempts: ${attempts}\nScore: ${reward}\n\nTotal Score:${totalScore}`
-    : `You lost!\n\nMinus 20 points for you!\n\nTotal Score:${totalScore} `;
+    ? `Contratulations, You won!\n\nAtempts: ${attempts}\nScore: ${reward}\n\nTotal Score:${totalScore} ヾ(☆▽☆)`
+    : `You lost!\n\nMinus 20 points for you!\n\nTotal Score:${totalScore} ♪～(￣、￣ )`;
 };
 
 const getPlayerGuess = function () {
@@ -126,7 +126,7 @@ const userInput = function (text, placeholder = "") {
   if (input == null) {
     let exit = confirm("Do you wish to quite the game? \n （（●´∧｀●））");
     if (exit) {
-      alert("Bye Bye, COWARD!");
+      alert("Bye Bye, COWARD! (☛´∀｀*)☛");
       return "EXIT";
     } else return userInput(text, placeholder);
   } else return input;
