@@ -134,6 +134,7 @@ const userInput = function (text, placeholder = "") {
 
 const quit = function () {
   console.log("quit ଵ ˛̼ ଵ");
+  console.clear();
   return open("./coward.jpg", "_self");
 };
 
