@@ -93,7 +93,7 @@ const endGame = function (attempts, victory) {
 };
 
 const getPlayerGuess = function () {
-  let stringInput = userInput("Enter a number between 1 and 100", "").trim();
+  let stringInput = userInput("Enter a number between 1 and 100", "");
   if (stringInput == "EXIT") {
     return "EXIT";
   }
